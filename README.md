@@ -15,6 +15,12 @@ Usage
 =
   Add your API key and secret to pumpdump.py.
 
+  !!! Ensure you do not enable withdraws or market trading !!!
+
+  Although this script doesn't do anything regarding withdraws or
+  market trading (you can see for yourself in the code...), it is best
+  practice not to give any program more access than it needs.
+
   Also, make note of the `allow_order` variable. If set to `True`, it
   will buy and sell coins. `False`, it will just display values.
 
@@ -58,4 +64,12 @@ Disclaimer
 =
 
 USE AT OWN RISK
+
 PROFITS NOT GUARENTEED
+
+!!! Ensure you do not enable withdraws or market trading !!!
+
+Although this script doesn't do anything regarding withdraws or
+market trading (you can see for yourself in the code...), it is best
+practice not to give any program more access than it needs.
+

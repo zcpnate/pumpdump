@@ -31,6 +31,10 @@ Usage
 			[+] Placing sell order at 0.151853 (+30%)...
       {u'uuid': u'4dceb026-23ef-483a-294e-eb5ce94dbe7c'}
 
+TODO
+=
+Probably could format the code better, just wanted to get basic functionality up first.
+
 Credits
 =
 

@@ -55,8 +55,12 @@ print 'Ask + 30% (safeish sell point) -- ' + str(askThirty)
 
 numCoins = (btcBalance - (btcBalance*0.0025)) / askTen
 
+buyPrice = askTen * numCoins
+sellPrice = askThirty * numCoins
+profit = sellPrice - buyPrice
+
 print '\n[+] Buying {} {} coins at {} BTC each for a total of {} BTC'.format(numCoins,
-        pumpCoin, askTen, askTen*numCoins)
+        pumpCoin, askTen, buyPrice)
 
 if allow_orders:
     print api.buylimit('BTC-' + pumpCoin, numCoins, askTen)
@@ -66,8 +70,10 @@ else:
 print '[+] Placing sell order at {} (+30%)...'.format(askThirty)
 
 if allow_orders:
-    print api.selllimit('BTC-' + pumpCoin, numCoins, askThrity)
+    print api.selllimit('BTC-' + pumpCoin, numCoins, askThirty)
 else:
     print "[!] allow_orders = False in script... change to make orders..."
 
+print '[+] Sold {} {} coins at {} BTC each for a total of {} BTC'.format(numCoins, pumpCoin, askThirty, sellPrice)
 
+print '[+] Profit: {} BTC'.format(profit)

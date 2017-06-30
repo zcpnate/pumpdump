@@ -1,6 +1,10 @@
 Python Bittrex Pump and Dumper
 =
 
+Uses Python 2.7.x.
+
+Tested on OS X 10.12.5, and Windows 7 x64.
+
 This program will allow you to type the name of a coin when a Telegram
 Pump and Dump group says the name, and it will automatically place a
 buy order at +10%*ask, and a sell order at +30%*ask. You can change
@@ -33,7 +37,10 @@ Usage
 
 TODO
 =
+
 Probably could format the code better, just wanted to get basic functionality up first.
+
+"telegram is laggy as shit, better to check the bittrex home page for coins that fly up in % in the last min they announce" - @Andre#0370
 
 Credits
 =

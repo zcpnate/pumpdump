@@ -23,11 +23,15 @@ import sys, signal, json
 # Get these from https://bittrex.com/Account/ManageApiKey
 api = bittrex('key', 'secret')
 
+# do before entering coin to save the API call during the pump
+btcBalance = api.getbalance("BTC")['Available']
+
 # Set to True to enable limit trading...
 # !!! USE AT OWN RISK !!!
 allow_orders = False
 
 def sigint_handler(signum, frame):
+    """Handler for ctrl+c"""
     print '\n[!] CTRL+C pressed. Exiting...'
     sys.exit(0)
 
@@ -43,17 +47,19 @@ pumpCoin = raw_input("Coin: ")
 
 coinPrice = api.getticker("BTC-" + pumpCoin)
 askPrice = coinPrice['Ask']
+
+# 10%/30% are arbitrary numbers, change to suit you
 askTen = askPrice + (0.1 * askPrice)
 askThirty = askPrice + (0.3 * askPrice)
 
-btcBalance = api.getbalance("BTC")['Available']
-
 print 'You have {} BTC available.'.format(btcBalance)
-print 'Ask -- ' + str(askPrice)
-print 'Ask + 10% (safeish buy point) -- ' + str(askTen)
-print 'Ask + 30% (safeish sell point) -- ' + str(askThirty)
+print 'Current ask price for {} is {} BTC.'.format(pumpCoin, askPrice)
+print 'Ask + 10% (safeish buy point) for {} is {} BTC.'.format(pumpCoin, askTen)
+print 'Ask + 30% (safeish sell point) for {} is {} BTC.'.format(pumpCoin, askThirty)
 
-numCoins = (btcBalance - (btcBalance*0.0025)) / askTen
+# calculates the number of pumpCoin(s) to buy, taking into
+# consideration Bittrex's 0.25% fee.
+numCoins = (btcBalance - (btcBalance*0.00251)) / askTen
 
 buyPrice = askTen * numCoins
 sellPrice = askThirty * numCoins

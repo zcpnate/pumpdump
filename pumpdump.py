@@ -53,7 +53,7 @@ print 'Ask -- ' + str(askPrice)
 print 'Ask + 10% (safeish buy point) -- ' + str(askTen)
 print 'Ask + 30% (safeish sell point) -- ' + str(askThirty)
 
-numCoins = (btcBalance - (btcBalance*0.025)) / askPrice
+numCoins = (btcBalance - (btcBalance*0.0025)) / askTen
 
 print '\n[+] Buying {} {} coins at {} BTC each for a total of {} BTC'.format(numCoins,
         pumpCoin, askTen, askTen*numCoins)

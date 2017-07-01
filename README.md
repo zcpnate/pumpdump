@@ -1,3 +1,16 @@
+This is free an always will be
+=
+
+Fuck this guy trying to charge people for my open sourced script.
+Doesn't even work at this point so good luck lol.
+
+@zaizoun 
+
+![Fuck zaizoun](https://cdn.discordapp.com/attachments/330399816322514966/330531841566310401/slack.PNG)
+
+![Fuck zaizoun2](https://cdn.discordapp.com/attachments/330399816322514966/330531959853940746/2.0.PNG)
+
+
 Python Bittrex Pump and Dumper
 =
 

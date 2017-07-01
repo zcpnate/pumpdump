@@ -49,13 +49,13 @@ coinPrice = api.getticker("BTC-" + pumpCoin)
 askPrice = coinPrice['Ask']
 
 # 10%/30% are arbitrary numbers, change to suit you
-askTen = askPrice + (0.1 * askPrice)
-askThirty = askPrice + (0.3 * askPrice)
+askTen = askPrice + (0.05 * askPrice)
+askThirty = askPrice + (0.15 * askPrice)
 
 print 'You have {} BTC available.'.format(btcBalance)
 print 'Current ask price for {} is {} BTC.'.format(pumpCoin, askPrice)
-print 'Ask + 10% (safeish buy point) for {} is {} BTC.'.format(pumpCoin, askTen)
-print 'Ask + 30% (safeish sell point) for {} is {} BTC.'.format(pumpCoin, askThirty)
+print 'Ask + 5% (safeish buy point) for {} is {} BTC.'.format(pumpCoin, askTen)
+print 'Ask + 15% (safeish sell point) for {} is {} BTC.'.format(pumpCoin, askThirty)
 
 # calculates the number of pumpCoin(s) to buy, taking into
 # consideration Bittrex's 0.25% fee.

@@ -1,8 +1,7 @@
-This is free an always will be
+This is free and always will be
 =
 
 Fuck this guy trying to charge people for my open sourced script.
-Doesn't even work at this point so good luck lol.
 
 @zaizoun 
 
@@ -20,8 +19,7 @@ Tested on OS X 10.12.5, and Windows 7 x64.
 
 This program will allow you to type the name of a coin when a Telegram
 Pump and Dump group says the name, and it will automatically place a
-buy order at +10%*ask, and a sell order at +30%*ask. You can change
-these values, but they seem like they will provide safe steady income.
+buy order at +X%*ask, and a sell order at +Y%*buy-price.
 
 
 Usage
@@ -34,25 +32,25 @@ Usage
   market trading (you can see for yourself in the code...), it is best
   practice not to give any program more access than it needs.
 
-  Also, make note of the `allow_order` variable. If set to `True`, it
-  will buy and sell coins. `False`, it will just display values.
-
   Example:
+  
+    $ python pumpdump.py -h
+    usage: pumpdump.py [-h] [-o] -b BUY -s SELL (-c COIN | -p)
 
-    $ python pumpdump.py
-			!!! BY DEFAULT THIS WILL BUY AS MANY COINS AS YOU HAVE BTC AVAILABLE !!!
-			!!! PRESS CTRL+C TO CANCEL BEFORE TYPING ANY COIN NAMES IF YOU DON"T WANT TO BUY !!!
+    Python Pump and Dumper
 
-			Coin: ETH
-			You have 0.00137032 BTC available.
-			Ask -- 0.11681
-			Ask + 10% (safeish buy point) -- 0.128491
-			Ask + 30% (safeish sell point) -- 0.151853
+    Buys max amount of a specified coin at a percent above the current ask,
+    and immidiately places a sell order at a percent above the price bought
+    at.
 
-			[+] Buying 0.0114379077134 ETH coins at 0.128491 BTC each for a total of 0.0014696682 BTC
-      {u'uuid': u'4dceb026-23ef-483a-294e-eb5ce94dbe7c'}
-			[+] Placing sell order at 0.151853 (+30%)...
-      {u'uuid': u'4dceb026-23ef-483a-294e-eb5ce94dbe7c'}
+    optional arguments:
+      -h, --help            show this help message and exit
+      -o, --order           Enables Trading... Be careful..
+      -b BUY, --buy BUY     Sets the percentage above current ask to buy (int 0-99)
+      -s SELL, --sell SELL  Sets the percentage above the buy price to sell (int 0-99)
+      -c COIN, --coin COIN  Sets the coin name
+      -p, --prompt          Prompts user for coin name.
+
 
 TODO
 =

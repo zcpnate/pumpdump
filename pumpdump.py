@@ -145,8 +145,10 @@ if __name__ == '__main__':
     sell_cost = sell_price * num_coins
     profit = sell_cost - buy_cost
 
-    print '[+] Buying {:.8f} {} coins at {:.8f} BTC each for a total of {:.8f} BTC'.format(
-            num_coins, pump_coin, buy_price, buy_cost)
+    # adjecent string literals are concatenated at runtime
+    # https://stackoverflow.com/a/3346295
+    print('[+] Buying {:.8f} {} coins at {:.8f} BTC each for a total of '
+          '{:.8f} BTC'.format(num_coins, pump_coin, buy_price, buy_cost))
 
     if allow_orders:
         print '[!] {}'.format(buy_coins(api, pump_coin, num_coins, buy_price))
@@ -168,7 +170,7 @@ if __name__ == '__main__':
     else:
         print '[!] Trading disabled'
 
-    print '[+] Sold {:.8f} {} coins at {:.8f} BTC each for a total of {:.8f} BTC'.format(
-            num_coins, pump_coin, sell_price, sell_cost)
+    print('[+] Sold {:.8f} {} coins at {:.8f} BTC each for a total of '
+          '{:.8f} BTC'.format(num_coins, pump_coin, sell_price, sell_cost))
 
     print '[+] Profit: {:.8f} BTC'.format(profit)

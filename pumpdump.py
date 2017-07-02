@@ -17,10 +17,11 @@ if you don't sell fast enough.
 
 from bittrex import bittrex
 
-import sys
-import signal
-import json
 import argparse
+import json
+import signal
+import sys
+import time
 
 # Get these from https://bittrex.com/Account/ManageApiKey
 api = bittrex('key', 'secret')
@@ -86,9 +87,9 @@ def buy_coins(api, coin, num_coins, price):
     return api.buylimit('BTC-{}'.format(coin), num_coins, price)
 
 
-def sell_coins(api, coin, price):
+def sell_coins(api, coin, num_coins, price):
     """Places a sell limit order on Bittrex"""
-    return api.selllimit('BTC-{}'.format(coin), api.getbalance(coin)['Available'], price)
+    return api.selllimit('BTC-{}'.format(coin), num_coins, price)
 
 if __name__ == '__main__':
     # get cmd args
@@ -145,7 +146,14 @@ if __name__ == '__main__':
             sell_price, sell_percent)
 
     if allow_orders:
-        print '[!] {}'.format(sell_coins(api, pump_coin, sell_price))
+        coins_owned = api.getbalance(pump_coin)['Available']
+
+        while coins_owned == 0:
+            time.sleep(0.1)
+            coins_owned = api.getbalance(pump_coin)['Available']
+
+        print '[!] {}'.format(sell_coins(
+            api, pump_coin, coins_owned, sell_price))
     else:
         print '[!] Trading disabled'
 

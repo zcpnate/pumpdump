@@ -16,7 +16,15 @@ if you don't sell fast enough.
 """
 
 from bittrex import bittrex
-import sys, signal, json, argparse
+
+import sys
+import signal
+import json
+import argparse
+
+# Get these from https://bittrex.com/Account/ManageApiKey
+api = bittrex('key', 'secret')
+
 
 def getArgs():
     """Parses command line arguments."""
@@ -33,35 +41,38 @@ at.''', formatter_class=argparse.RawTextHelpFormatter)
     parser.add_argument(
             '-o',
             '--order',
-            help = 'Enables Trading... Be careful..',
-            action = "store_true",
-            dest = "allow_orders",
-            default = False)
+            help='Enables Trading... Be careful..',
+            action="store_true",
+            dest="allow_orders",
+            default=False)
 
     parser.add_argument(
             '-b',
             '--buy',
-            help = 'Sets the percentage above current ask to buy (int 0-99)',
-            type = int,
-            dest = 'buy',
-            required = True)
+            help='Sets the percentage above current ask to buy (int 0-99)',
+            type=int,
+            dest='buy',
+            required=True)
 
     parser.add_argument(
             '-s',
             '--sell',
-            help = 'Sets the percentage above the buy price to sell (int 0-99)',
-            type = int,
-            dest = 'sell',
-            required = True)
+            help='Sets the percentage above the buy price to sell (int 0-99)',
+            type=int,
+            dest='sell',
+            required=True)
 
 # prompt or specify coin in command line
     group = parser.add_mutually_exclusive_group(required=True)
     group.add_argument('-c', '--coin', help='Sets the coin name', dest='coin')
-    group.add_argument('-p', '--prompt', help='Prompts user for coin name.', action='store_true', dest='coin')
+    group.add_argument(
+            '-p', '--prompt', help='Prompts user for coin name.',
+            action='store_true', dest='coin')
 
     args = parser.parse_args()
 
     return args.allow_orders, args.coin, args.buy, args.sell
+
 
 def sigint_handler(signum, frame):
     """Handler for ctrl+c"""
@@ -69,21 +80,18 @@ def sigint_handler(signum, frame):
     print '\n[!] CTRL+C pressed. Exiting...'
     sys.exit(0)
 
-
+# get cmd args
 allow_orders, pump_coin, buy_percent, sell_percent = getArgs()
 
 # setup ctrl+c handler
 signal.signal(signal.SIGINT, sigint_handler)
 
-# Get these from https://bittrex.com/Account/ManageApiKey
-api = bittrex('key', 'secret')
-
 # do before entering coin to save the API call during the pump
 btc_balance = api.getbalance("BTC")['Available']
 
 if allow_orders:
-    print '!!! BY DEFAULT THIS WILL BUY AS MANY COINS AS YOU HAVE BTC AVAILABLE !!!'
-    print '!!! PRESS CTRL+C TO CANCEL BEFORE TYPING ANY COIN NAMES IF YOU DON"T WANT TO BUY !!!\n'
+    print '!!! BY DEFAULT THIS WILL BUY AS MANY COINS AS YOU HAVE BTC !!!'
+    print '!!! PRESS CTRL+C TO CANCEL !!!\n'
 else:
     print "[!] allow_orders = False in script... change to make orders..."
 
@@ -93,25 +101,27 @@ if isinstance(pump_coin, bool):
 
 coin_price = api.getticker("BTC-" + pump_coin)['Ask']
 
-# 10%/30% are arbitrary numbers, change to suit you
 buy_price = coin_price + ((float(buy_percent) / 100) * coin_price)
 sell_price = buy_price + ((float(sell_percent) / 100) * buy_price)
 
 print '[+] {} BTC available'.format(btc_balance)
 print '[+] {} ask price is {} BTC'.format(pump_coin, coin_price)
-print '[+] +{}% (safeish buy point) for {} at {} BTC'.format(buy_percent, pump_coin, buy_price)
-print '[+] +{}% (safeish sell point) for {} at {} BTC'.format(sell_percent, pump_coin, sell_price)
+print '[+] +{}% (safeish buy point) for {} at {} BTC'.format(
+        buy_percent, pump_coin, buy_price)
+print '[+] +{}% (safeish sell point) for {} at {} BTC'.format(
+        sell_percent, pump_coin, sell_price)
 
 # calculates the number of pump_coin(s) to buy, taking into
-# consideration Bittrex's 0.25% fee. (plus a little bit in case of 0.00000001btc probs?)
+# consideration Bittrex's 0.25% fee. (plus a little bit in case of
+# 0.00000001btc probs?)
 num_coins = (btc_balance - (btc_balance * 0.00251)) / buy_price
 
 buy_cost = buy_price * num_coins
 sell_cost = sell_price * num_coins
 profit = sell_cost - buy_cost
 
-print '[+] Buying {} {} coins at {} BTC each for a total of {} BTC'.format(num_coins,
-        pump_coin, buy_price, buy_cost)
+print '[+] Buying {} {} coins at {} BTC each for a total of {} BTC'.format(
+        num_coins, pump_coin, buy_price, buy_cost)
 
 if allow_orders:
     print "[!] " + api.buylimit('BTC-' + pump_coin, num_coins, buy_price)
@@ -125,6 +135,7 @@ if allow_orders:
 else:
     print "[!] allow_orders = False in script... change to make orders..."
 
-print '[+] Sold {} {} coins at {} BTC each for a total of {} BTC'.format(num_coins, pump_coin, sell_price, sell_cost)
+print '[+] Sold {} {} coins at {} BTC each for a total of {} BTC'.format(
+        num_coins, pump_coin, sell_price, sell_cost)
 
 print '[+] Profit: {} BTC'.format(profit)

@@ -118,11 +118,11 @@ if __name__ == '__main__':
     buy_price = coin_price + ((float(buy_percent) / 100) * coin_price)
     sell_price = buy_price + ((float(sell_percent) / 100) * buy_price)
 
-    print '[+] {} BTC available'.format(btc_balance)
-    print '[+] {} ask price is {} BTC'.format(pump_coin, coin_price)
-    print '[+] +{}% for {} at {} BTC'.format(
+    print '[+] {:.8f} BTC available'.format(btc_balance)
+    print '[+] {} ask price is {:.8f} BTC'.format(pump_coin, coin_price)
+    print '[+] +{}% for {} at {:.8f} BTC'.format(
             buy_percent, pump_coin, buy_price)
-    print '[+] +{}% for {} at {} BTC'.format(
+    print '[+] +{}% for {} at {:.8f} BTC'.format(
             sell_percent, pump_coin, sell_price)
 
     # calculates the number of pump_coin(s) to buy, taking into
@@ -134,7 +134,7 @@ if __name__ == '__main__':
     sell_cost = sell_price * num_coins
     profit = sell_cost - buy_cost
 
-    print '[+] Buying {} {} coins at {} BTC each for a total of {} BTC'.format(
+    print '[+] Buying {:.8f} {} coins at {:.8f} BTC each for a total of {:.8f} BTC'.format(
             num_coins, pump_coin, buy_price, buy_cost)
 
     if allow_orders:
@@ -142,7 +142,7 @@ if __name__ == '__main__':
     else:
         print '[!] Trading disabled'
 
-    print '[+] Placing sell order at {} (+{}%)...'.format(
+    print '[+] Placing sell order at {:.8f} BTC (+{}%)'.format(
             sell_price, sell_percent)
 
     if allow_orders:
@@ -157,7 +157,7 @@ if __name__ == '__main__':
     else:
         print '[!] Trading disabled'
 
-    print '[+] Sold {} {} coins at {} BTC each for a total of {} BTC'.format(
+    print '[+] Sold {:.8f} {} coins at {:.8f} BTC each for a total of {:.8f} BTC'.format(
             num_coins, pump_coin, sell_price, sell_cost)
 
-    print '[+] Profit: {} BTC'.format(profit)
+    print '[+] Profit: {:.8f} BTC'.format(profit)

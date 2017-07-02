@@ -1,3 +1,14 @@
+New API key instructions
+=
+
+Program now reads keys from "secrets.json". You need to create this file yourself.
+
+It should be structured as follows:
+    {
+      "key" : "0123456789ABCDEF",
+      "secret" : FEDCBA9876543210"
+    }
+
 Python Bittrex Pump and Dumper
 =
 
@@ -12,7 +23,7 @@ buy order at +X%*ask, and a sell order at +Y%*buy-price.
 
 Usage
 =
-  Add your API key and secret to pumpdump.py.
+
 
   !!! Ensure you do not enable withdraws or market trading !!!
 

@@ -23,8 +23,15 @@ import signal
 import sys
 import time
 
-# Get these from https://bittrex.com/Account/ManageApiKey
-api = bittrex('key', 'secret')
+
+def get_secret(secret_file):
+    """Grabs API key and secret from file and returns them"""
+
+    with open(secret_file) as secrets:
+        secrets_json = json.load(secrets)
+        secrets.close()
+
+    return secrets_json['key'], secrets_json['secret']
 
 
 def getArgs():
@@ -98,8 +105,12 @@ if __name__ == '__main__':
     # setup ctrl+c handler
     signal.signal(signal.SIGINT, sigint_handler)
 
+    # setup api
+    key, secret = get_secret("secrets.json")
+    api = bittrex(str(key), str(secret))
+
     # do before entering coin to save the API call during the pump
-    btc_balance = api.getbalance("BTC")['Available']
+    btc_balance = api.getbalance('BTC')['Available']
 
     if allow_orders:
         print '!!! BY DEFAULT THIS WILL BUY AS MANY COINS AS YOU HAVE BTC !!!'

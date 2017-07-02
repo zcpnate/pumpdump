@@ -31,7 +31,7 @@ def get_secret(secret_file):
         secrets_json = json.load(secrets)
         secrets.close()
 
-    return secrets_json['key'], secrets_json['secret']
+    return str(secrets_json['key']), str(secrets_json['secret'])
 
 
 def getArgs():
@@ -107,7 +107,7 @@ if __name__ == '__main__':
 
     # setup api
     key, secret = get_secret("secrets.json")
-    api = bittrex(str(key), str(secret))
+    api = bittrex(key, secret)
 
     # do before entering coin to save the API call during the pump
     btc_balance = api.getbalance('BTC')['Available']

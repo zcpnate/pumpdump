@@ -4,6 +4,7 @@ New API key instructions
 Program now reads keys from "secrets.json". You need to create this file yourself.
 
 It should be structured as follows:
+
     {
       "key" : "0123456789ABCDEF",
       "secret" : FEDCBA9876543210"

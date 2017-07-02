@@ -86,9 +86,9 @@ def buy_coins(api, coin, num_coins, price):
     return api.buylimit('BTC-{}'.format(coin), num_coins, price)
 
 
-def sell_coins(api, coin, num_coins, price):
+def sell_coins(api, coin, price):
     """Places a sell limit order on Bittrex"""
-    return api.selllimit('BTC-{}'.format(coin), num_coins, price)
+    return api.selllimit('BTC-{}'.format(coin), api.getbalance(coin)['Available'], price)
 
 if __name__ == '__main__':
     # get cmd args
@@ -145,7 +145,7 @@ if __name__ == '__main__':
             sell_price, sell_percent)
 
     if allow_orders:
-        print '[!] {}'.format(sell_coins(api, pump_coin, num_coins, sell_price))
+        print '[!] {}'.format(sell_coins(api, pump_coin, sell_price))
     else:
         print '[!] Trading disabled'
 

@@ -1,15 +1,3 @@
-This is free and always will be
-=
-
-Fuck this guy trying to charge people for my open sourced script.
-
-@zaizoun 
-
-![Fuck zaizoun](https://cdn.discordapp.com/attachments/330399816322514966/330531841566310401/slack.PNG)
-
-![Fuck zaizoun2](https://cdn.discordapp.com/attachments/330399816322514966/330531959853940746/2.0.PNG)
-
-
 Python Bittrex Pump and Dumper
 =
 
@@ -70,6 +58,18 @@ Donate
 If you feel like this program helped you out, or made you money, feel free to donate!
 
 BTC: 1Gv2MDC8YgjDYiy6P7sTZizihEKoJyK8ew
+
+This is free and always will be
+=
+
+Fuck this guy trying to charge people for my open sourced script.
+
+@zaizoun 
+
+![Fuck zaizoun](https://cdn.discordapp.com/attachments/330399816322514966/330531841566310401/slack.PNG)
+
+![Fuck zaizoun2](https://cdn.discordapp.com/attachments/330399816322514966/330531959853940746/2.0.PNG)
+
 
 Disclaimer
 =
